@@ -1,0 +1,692 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ShipManageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookingCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OrderNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="BookerName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ContactPhone" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ContactEmail" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="BuyerName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="200" />
+          <Property Name="CompanyAddress" Type="nvarchar" MaxLength="500" />
+          <Property Name="TaxCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="RouteId" Type="int" Nullable="false" />
+          <Property Name="RouteName" Type="nvarchar" MaxLength="100" />
+          <Property Name="VoyageId" Type="int" Nullable="false" />
+          <Property Name="BoatId" Type="int" Nullable="false" />
+          <Property Name="BoatName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ScheduleId" Type="int" Nullable="false" />
+          <Property Name="DepartureDate" Type="date" Nullable="false" />
+          <Property Name="DepartureTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="DeparturePort" Type="nvarchar" MaxLength="100" />
+          <Property Name="ArrivalPort" Type="nvarchar" MaxLength="100" />
+          <Property Name="TotalPassengers" Type="int" Nullable="false" />
+          <Property Name="SubTotal" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="AdditionalFees" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="TotalAmount" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="PaidAmount" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="IsRoundTrip" Type="bit" />
+          <Property Name="OrderStatus" Type="nvarchar" MaxLength="20" />
+          <Property Name="PaymentStatus" Type="nvarchar" MaxLength="20" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="ExpiryDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PaymentLogs">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentId" Type="int" Nullable="false" />
+          <Property Name="LogType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LogMessage" Type="nvarchar(max)" />
+          <Property Name="LogData" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="PaymentId" />
+          </Key>
+          <Property Name="PaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="PaymentMethod" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TransactionId" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="BankTransactionNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="PaymentAmount" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="PaymentCurrency" Type="nvarchar" MaxLength="10" />
+          <Property Name="vnp_Amount" Type="nvarchar" MaxLength="50" />
+          <Property Name="vnp_BankCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="vnp_BankTranNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="vnp_CardType" Type="nvarchar" MaxLength="20" />
+          <Property Name="vnp_OrderInfo" Type="nvarchar" MaxLength="100" />
+          <Property Name="vnp_PayDate" Type="nvarchar" MaxLength="20" />
+          <Property Name="vnp_ResponseCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="vnp_TransactionNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="vnp_TxnRef" Type="nvarchar" MaxLength="100" />
+          <Property Name="vnp_SecureHash" Type="nvarchar" MaxLength="500" />
+          <Property Name="PaymentDate" Type="datetime" />
+          <Property Name="PaymentStatus" Type="nvarchar" MaxLength="20" />
+          <Property Name="ResponseMessage" Type="nvarchar" MaxLength="500" />
+          <Property Name="IPNData" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Tickets">
+          <Key>
+            <PropertyRef Name="TicketId" />
+          </Key>
+          <Property Name="TicketId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="TicketNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PassengerIdNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PassengerName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PassengerGender" Type="int" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="PlaceOfBirth" Type="nvarchar" MaxLength="100" />
+          <Property Name="NationId" Type="int" Nullable="false" />
+          <Property Name="NationName" Type="nvarchar" MaxLength="100" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="SeatId" Type="int" Nullable="false" />
+          <Property Name="SeatNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SeatClass" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PositionId" Type="int" Nullable="false" />
+          <Property Name="IsVIP" Type="bit" />
+          <Property Name="TicketTypeId" Type="int" Nullable="false" />
+          <Property Name="TicketTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TicketPriceId" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="SequenceNumber" Type="int" Nullable="false" />
+          <Property Name="QRCode" Type="nvarchar" MaxLength="500" />
+          <Property Name="TicketStatus" Type="nvarchar" MaxLength="20" />
+          <Property Name="CheckInTime" Type="datetime" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserRoleAssignments">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="AssignedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="Gender" Type="int" />
+          <Property Name="Address" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__Orders__UserId__06CD04F7">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PaymentLo__Payme__18EBB532">
+          <End Role="Payments" Type="Self.Payments" Multiplicity="1" />
+          <End Role="PaymentLogs" Type="Self.PaymentLogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payments">
+              <PropertyRef Name="PaymentId" />
+            </Principal>
+            <Dependent Role="PaymentLogs">
+              <PropertyRef Name="PaymentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payments__OrderI__151B244E">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tickets__OrderId__0D7A0286">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRoleA__RoleI__7B5B524B">
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="1" />
+          <End Role="UserRoleAssignments" Type="Self.UserRoleAssignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRoles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRoleAssignments">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRoleA__UserI__7A672E12">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserRoleAssignments" Type="Self.UserRoleAssignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRoleAssignments">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShipManageModelStoreContainer">
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentLogs" EntityType="Self.PaymentLogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoleAssignments" EntityType="Self.UserRoleAssignments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Orders__UserId__06CD04F7" Association="Self.FK__Orders__UserId__06CD04F7">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PaymentLo__Payme__18EBB532" Association="Self.FK__PaymentLo__Payme__18EBB532">
+            <End Role="Payments" EntitySet="Payments" />
+            <End Role="PaymentLogs" EntitySet="PaymentLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payments__OrderI__151B244E" Association="Self.FK__Payments__OrderI__151B244E">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tickets__OrderId__0D7A0286" Association="Self.FK__Tickets__OrderId__0D7A0286">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRoleA__RoleI__7B5B524B" Association="Self.FK__UserRoleA__RoleI__7B5B524B">
+            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End Role="UserRoleAssignments" EntitySet="UserRoleAssignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRoleA__UserI__7A672E12" Association="Self.FK__UserRoleA__UserI__7A672E12">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRoleAssignments" EntitySet="UserRoleAssignments" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShipManageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ShipManageEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="ShipManageModel.Users" />
+          <EntitySet Name="Orders" EntityType="ShipManageModel.Orders" />
+          <EntitySet Name="PaymentLogs" EntityType="ShipManageModel.PaymentLogs" />
+          <EntitySet Name="Payments" EntityType="ShipManageModel.Payments" />
+          <EntitySet Name="Tickets" EntityType="ShipManageModel.Tickets" />
+          <EntitySet Name="UserRoleAssignments" EntityType="ShipManageModel.UserRoleAssignments" />
+          <EntitySet Name="UserRoles" EntityType="ShipManageModel.UserRoles" />
+          <AssociationSet Name="FK__Orders__UserId__06CD04F7" Association="ShipManageModel.FK__Orders__UserId__06CD04F7">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payments__OrderI__151B244E" Association="ShipManageModel.FK__Payments__OrderI__151B244E">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tickets__OrderId__0D7A0286" Association="ShipManageModel.FK__Tickets__OrderId__0D7A0286">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PaymentLo__Payme__18EBB532" Association="ShipManageModel.FK__PaymentLo__Payme__18EBB532">
+            <End Role="Payments" EntitySet="Payments" />
+            <End Role="PaymentLogs" EntitySet="PaymentLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRoleA__RoleI__7B5B524B" Association="ShipManageModel.FK__UserRoleA__RoleI__7B5B524B">
+            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End Role="UserRoleAssignments" EntitySet="UserRoleAssignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRoleA__UserI__7A672E12" Association="ShipManageModel.FK__UserRoleA__UserI__7A672E12">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRoleAssignments" EntitySet="UserRoleAssignments" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="Gender" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Orders" Relationship="ShipManageModel.FK__Orders__UserId__06CD04F7" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="UserRoleAssignments" Relationship="ShipManageModel.FK__UserRoleA__UserI__7A672E12" FromRole="Users" ToRole="UserRoleAssignments" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="BookerName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPhone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ContactEmail" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BuyerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TaxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RouteId" Type="Int32" Nullable="false" />
+          <Property Name="RouteName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="VoyageId" Type="Int32" Nullable="false" />
+          <Property Name="BoatId" Type="Int32" Nullable="false" />
+          <Property Name="BoatName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ScheduleId" Type="Int32" Nullable="false" />
+          <Property Name="DepartureDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DepartureTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="DeparturePort" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ArrivalPort" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TotalPassengers" Type="Int32" Nullable="false" />
+          <Property Name="SubTotal" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="AdditionalFees" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="PaidAmount" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="IsRoundTrip" Type="Boolean" />
+          <Property Name="OrderStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Users" Relationship="ShipManageModel.FK__Orders__UserId__06CD04F7" FromRole="Orders" ToRole="Users" />
+          <NavigationProperty Name="Payments" Relationship="ShipManageModel.FK__Payments__OrderI__151B244E" FromRole="Orders" ToRole="Payments" />
+          <NavigationProperty Name="Tickets" Relationship="ShipManageModel.FK__Tickets__OrderId__0D7A0286" FromRole="Orders" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="PaymentLogs">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentId" Type="Int32" Nullable="false" />
+          <Property Name="LogType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LogMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LogData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Payments" Relationship="ShipManageModel.FK__PaymentLo__Payme__18EBB532" FromRole="PaymentLogs" ToRole="Payments" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="PaymentId" />
+          </Key>
+          <Property Name="PaymentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <Property Name="PaymentMethod" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionId" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BankTransactionNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentAmount" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="PaymentCurrency" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="vnp_Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="vnp_BankCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="vnp_BankTranNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="vnp_CardType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="vnp_OrderInfo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="vnp_PayDate" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="vnp_ResponseCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="vnp_TransactionNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="vnp_TxnRef" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="vnp_SecureHash" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="3" />
+          <Property Name="PaymentStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ResponseMessage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IPNData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Orders" Relationship="ShipManageModel.FK__Payments__OrderI__151B244E" FromRole="Payments" ToRole="Orders" />
+          <NavigationProperty Name="PaymentLogs" Relationship="ShipManageModel.FK__PaymentLo__Payme__18EBB532" FromRole="Payments" ToRole="PaymentLogs" />
+        </EntityType>
+        <EntityType Name="Tickets">
+          <Key>
+            <PropertyRef Name="TicketId" />
+          </Key>
+          <Property Name="TicketId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <Property Name="TicketNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PassengerIdNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PassengerName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PassengerGender" Type="Int32" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="PlaceOfBirth" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NationId" Type="Int32" Nullable="false" />
+          <Property Name="NationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SeatId" Type="Int32" Nullable="false" />
+          <Property Name="SeatNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SeatClass" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PositionId" Type="Int32" Nullable="false" />
+          <Property Name="IsVIP" Type="Boolean" />
+          <Property Name="TicketTypeId" Type="Int32" Nullable="false" />
+          <Property Name="TicketTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TicketPriceId" Type="Int32" Nullable="false" />
+          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="SequenceNumber" Type="Int32" Nullable="false" />
+          <Property Name="QRCode" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TicketStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CheckInTime" Type="DateTime" Precision="3" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Orders" Relationship="ShipManageModel.FK__Tickets__OrderId__0D7A0286" FromRole="Tickets" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="UserRoleAssignments">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="AssignedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UserRoles" Relationship="ShipManageModel.FK__UserRoleA__RoleI__7B5B524B" FromRole="UserRoleAssignments" ToRole="UserRoles" />
+          <NavigationProperty Name="Users" Relationship="ShipManageModel.FK__UserRoleA__UserI__7A672E12" FromRole="UserRoleAssignments" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserRoleAssignments" Relationship="ShipManageModel.FK__UserRoleA__RoleI__7B5B524B" FromRole="UserRoles" ToRole="UserRoleAssignments" />
+        </EntityType>
+        <Association Name="FK__Orders__UserId__06CD04F7">
+          <End Type="ShipManageModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="ShipManageModel.Orders" Role="Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payments__OrderI__151B244E">
+          <End Type="ShipManageModel.Orders" Role="Orders" Multiplicity="1" />
+          <End Type="ShipManageModel.Payments" Role="Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tickets__OrderId__0D7A0286">
+          <End Type="ShipManageModel.Orders" Role="Orders" Multiplicity="1" />
+          <End Type="ShipManageModel.Tickets" Role="Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PaymentLo__Payme__18EBB532">
+          <End Type="ShipManageModel.Payments" Role="Payments" Multiplicity="1" />
+          <End Type="ShipManageModel.PaymentLogs" Role="PaymentLogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payments">
+              <PropertyRef Name="PaymentId" />
+            </Principal>
+            <Dependent Role="PaymentLogs">
+              <PropertyRef Name="PaymentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRoleA__RoleI__7B5B524B">
+          <End Type="ShipManageModel.UserRoles" Role="UserRoles" Multiplicity="1" />
+          <End Type="ShipManageModel.UserRoleAssignments" Role="UserRoleAssignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRoles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRoleAssignments">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRoleA__UserI__7A672E12">
+          <End Type="ShipManageModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="ShipManageModel.UserRoleAssignments" Role="UserRoleAssignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRoleAssignments">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShipManageModelStoreContainer" CdmEntityContainer="ShipManageEntities">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ShipManageModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="ShipManageModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="IsRoundTrip" ColumnName="IsRoundTrip" />
+                <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="AdditionalFees" ColumnName="AdditionalFees" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="TotalPassengers" ColumnName="TotalPassengers" />
+                <ScalarProperty Name="ArrivalPort" ColumnName="ArrivalPort" />
+                <ScalarProperty Name="DeparturePort" ColumnName="DeparturePort" />
+                <ScalarProperty Name="DepartureTime" ColumnName="DepartureTime" />
+                <ScalarProperty Name="DepartureDate" ColumnName="DepartureDate" />
+                <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
+                <ScalarProperty Name="BoatName" ColumnName="BoatName" />
+                <ScalarProperty Name="BoatId" ColumnName="BoatId" />
+                <ScalarProperty Name="VoyageId" ColumnName="VoyageId" />
+                <ScalarProperty Name="RouteName" ColumnName="RouteName" />
+                <ScalarProperty Name="RouteId" ColumnName="RouteId" />
+                <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
+                <ScalarProperty Name="CompanyAddress" ColumnName="CompanyAddress" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="BuyerName" ColumnName="BuyerName" />
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
+                <ScalarProperty Name="BookerName" ColumnName="BookerName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="BookingCode" ColumnName="BookingCode" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentLogs">
+            <EntityTypeMapping TypeName="ShipManageModel.PaymentLogs">
+              <MappingFragment StoreEntitySet="PaymentLogs">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LogData" ColumnName="LogData" />
+                <ScalarProperty Name="LogMessage" ColumnName="LogMessage" />
+                <ScalarProperty Name="LogType" ColumnName="LogType" />
+                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+                <ScalarProperty Name="LogId" ColumnName="LogId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="ShipManageModel.Payments">
+              <MappingFragment StoreEntitySet="Payments">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IPNData" ColumnName="IPNData" />
+                <ScalarProperty Name="ResponseMessage" ColumnName="ResponseMessage" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="vnp_SecureHash" ColumnName="vnp_SecureHash" />
+                <ScalarProperty Name="vnp_TxnRef" ColumnName="vnp_TxnRef" />
+                <ScalarProperty Name="vnp_TransactionNo" ColumnName="vnp_TransactionNo" />
+                <ScalarProperty Name="vnp_ResponseCode" ColumnName="vnp_ResponseCode" />
+                <ScalarProperty Name="vnp_PayDate" ColumnName="vnp_PayDate" />
+                <ScalarProperty Name="vnp_OrderInfo" ColumnName="vnp_OrderInfo" />
+                <ScalarProperty Name="vnp_CardType" ColumnName="vnp_CardType" />
+                <ScalarProperty Name="vnp_BankTranNo" ColumnName="vnp_BankTranNo" />
+                <ScalarProperty Name="vnp_BankCode" ColumnName="vnp_BankCode" />
+                <ScalarProperty Name="vnp_Amount" ColumnName="vnp_Amount" />
+                <ScalarProperty Name="PaymentCurrency" ColumnName="PaymentCurrency" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+                <ScalarProperty Name="BankTransactionNumber" ColumnName="BankTransactionNumber" />
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tickets">
+            <EntityTypeMapping TypeName="ShipManageModel.Tickets">
+              <MappingFragment StoreEntitySet="Tickets">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CheckInTime" ColumnName="CheckInTime" />
+                <ScalarProperty Name="TicketStatus" ColumnName="TicketStatus" />
+                <ScalarProperty Name="QRCode" ColumnName="QRCode" />
+                <ScalarProperty Name="SequenceNumber" ColumnName="SequenceNumber" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="TicketPriceId" ColumnName="TicketPriceId" />
+                <ScalarProperty Name="TicketTypeName" ColumnName="TicketTypeName" />
+                <ScalarProperty Name="TicketTypeId" ColumnName="TicketTypeId" />
+                <ScalarProperty Name="IsVIP" ColumnName="IsVIP" />
+                <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+                <ScalarProperty Name="SeatClass" ColumnName="SeatClass" />
+                <ScalarProperty Name="SeatNumber" ColumnName="SeatNumber" />
+                <ScalarProperty Name="SeatId" ColumnName="SeatId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="NationName" ColumnName="NationName" />
+                <ScalarProperty Name="NationId" ColumnName="NationId" />
+                <ScalarProperty Name="PlaceOfBirth" ColumnName="PlaceOfBirth" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="PassengerGender" ColumnName="PassengerGender" />
+                <ScalarProperty Name="PassengerName" ColumnName="PassengerName" />
+                <ScalarProperty Name="PassengerIdNumber" ColumnName="PassengerIdNumber" />
+                <ScalarProperty Name="TicketNumber" ColumnName="TicketNumber" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoleAssignments">
+            <EntityTypeMapping TypeName="ShipManageModel.UserRoleAssignments">
+              <MappingFragment StoreEntitySet="UserRoleAssignments">
+                <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="ShipManageModel.UserRoles">
+              <MappingFragment StoreEntitySet="UserRoles">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
