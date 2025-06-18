@@ -54,6 +54,7 @@ namespace Service.Helper
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     var routes = JsonConvert.DeserializeObject<List<RouteModel>>(content);
+                    _logger.WriteLog($"Retrieved {routes?.Count ?? 0} routes from external API");
                     return routes ?? new List<RouteModel>();
                 }
                 else
@@ -69,6 +70,16 @@ namespace Service.Helper
             }
         }
 
+        private List<RouteModel> GetFallbackRouteData()
+        {
+            _logger.WriteLog("Returning fallback route data for testing");
+
+            return new List<RouteModel>
+            {
+               
+            };
+        }
+
         public async Task<List<VoyageModel>> SearchVoyageAsync(SearchVoyageQuery query)
         {
             try
@@ -82,6 +93,7 @@ namespace Service.Helper
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     var voyages = JsonConvert.DeserializeObject<List<VoyageModel>>(content);
+                    _logger.WriteLog($"Retrieved {voyages?.Count ?? 0} voyages from external API");
                     return voyages ?? new List<VoyageModel>();
                 }
                 else
@@ -96,6 +108,8 @@ namespace Service.Helper
                 return new List<VoyageModel>();
             }
         }
+
+
 
         public async Task<List<VoyageModel>> SearchVoyageBackAsync(SearchVoyageBackQuery query)
         {
@@ -138,6 +152,7 @@ namespace Service.Helper
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     var seats = JsonConvert.DeserializeObject<List<SeatModel>>(content);
+                    _logger.WriteLog($"Retrieved {seats?.Count ?? 0} empty seats from API");
                     return seats ?? new List<SeatModel>();
                 }
                 else
@@ -148,7 +163,7 @@ namespace Service.Helper
             }
             catch (Exception ex)
             {
-                _logger.WriteLog($"Error calling Ferry API GetSeatsEmpty: {ex.Message}");
+                _logger.WriteLog($"Error in GetSeatsEmptyAsync: {ex.Message}");
                 return new List<SeatModel>();
             }
         }
@@ -166,6 +181,7 @@ namespace Service.Helper
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     var seats = JsonConvert.DeserializeObject<List<SeatModel>>(content);
+                    _logger.WriteLog($"Retrieved {seats?.Count ?? 0} seats from boat layout API");
                     return seats ?? new List<SeatModel>();
                 }
                 else
@@ -176,7 +192,7 @@ namespace Service.Helper
             }
             catch (Exception ex)
             {
-                _logger.WriteLog($"Error calling Ferry API GetBoatLayout: {ex.Message}");
+                _logger.WriteLog($"Error in GetBoatLayoutAsync: {ex.Message}");
                 return new List<SeatModel>();
             }
         }
